@@ -27,17 +27,16 @@ Released   : 20130720
 
 <CFQUERY name="avid" datasource="#ds#" dbtype="ODBC" cachedWithin="#CreateTimeSpan(0,0,10,0)#">
 SELECT TOP 1 CONVENTIONDATE, DropDeadDate, ConventionName, ConventionEnds, Announcement, ParticipationText, LarpText, PASSWORD, HOURSFORFREE
-			 ,ENCRYPTKEY, ENCRYPTED_PASSWORD
+			 ,ENCRYPTKEY, RTRIM(ENCRYPTED_PASSWORD) AS ENCRYPTED_PASSWORD
 	FROM ADMIN
 </CFQUERY>
-
 
 
 <CFIF Not IsDefined("Session.Administrator")>
 
 	<cfif IsDefined("form.password")>
 		<!--- <CFIF #form.password# neq #AVID.PASSWORD#> --->
-		<CFIF ENCRYPT(form.password, avid.ENCRYPTKEY) NEQ AVID.ENCRYPTED_PASSWORD>
+		<CFIF trim(ENCRYPT(form.password, avid.ENCRYPTKEY)) NEQ trim(AVID.ENCRYPTED_PASSWORD)>
 			<cflocation url="admin.cfm">
 		</cfif>
 	<cfelse>

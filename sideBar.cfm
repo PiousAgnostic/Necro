@@ -88,6 +88,8 @@ ORDER BY Games.GameId DESC;
 	display: none;
 	padding: 50px 30px 50px 30px;
 	cursor: pointer;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 </style>
 	<div class="exactCenter" onclick="showRecent(-1)"></div>
